@@ -8,6 +8,7 @@ import '../../../core/routing/route_names.dart';
 import '../../../shared/widgets/app_card.dart';
 import '../../../shared/widgets/empty_state.dart';
 import '../../../shared/widgets/loading_indicator.dart';
+import '../../../shared/widgets/stokvel_avatar.dart';
 import '../../../shared/widgets/stokvel_type_chip.dart';
 import '../providers/groups_provider.dart';
 
@@ -65,43 +66,60 @@ class GroupsListScreen extends ConsumerWidget {
                     RouteNames.groupDetail,
                     pathParameters: {'id': group.id},
                   ),
-                  child: Column(
+                  child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              group.name,
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                          ),
-                          StokvelTypeChip(type: group.type),
-                        ],
+                      StokvelAvatar(
+                        name: group.name,
+                        type: group.type,
                       ),
-                      const Gap(8),
-                      Row(
-                        children: [
-                          const Icon(Icons.people_outline, size: 16),
-                          const Gap(4),
-                          Text(
-                            '${group.memberCount} members',
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                          const Gap(16),
-                          Text(
-                            '${currencyFormat.format(group.contributionAmount)}/month',
-                            style: Theme.of(context).textTheme.bodySmall,
-                          ),
-                        ],
-                      ),
-                      const Gap(8),
-                      Text(
-                        'Balance: ${currencyFormat.format(group.totalCollected)}',
-                        style:
-                            Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.w600,
+                      const Gap(12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    group.name,
+                                    style:
+                                        Theme.of(context).textTheme.titleLarge,
+                                  ),
                                 ),
+                                StokvelTypeChip(type: group.type),
+                              ],
+                            ),
+                            const Gap(8),
+                            Row(
+                              children: [
+                                const Icon(Icons.people_outline, size: 16),
+                                const Gap(4),
+                                Text(
+                                  '${group.memberCount} members',
+                                  style:
+                                      Theme.of(context).textTheme.bodySmall,
+                                ),
+                                const Gap(16),
+                                Text(
+                                  '${currencyFormat.format(group.contributionAmount)}/${group.contributionFrequency}',
+                                  style:
+                                      Theme.of(context).textTheme.bodySmall,
+                                ),
+                              ],
+                            ),
+                            const Gap(8),
+                            Text(
+                              'Balance: ${currencyFormat.format(group.totalCollected)}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
