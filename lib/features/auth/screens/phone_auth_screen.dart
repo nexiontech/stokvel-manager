@@ -171,7 +171,7 @@ class _PhoneAuthScreenState extends ConsumerState<PhoneAuthScreen> {
                     'https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg',
                     height: 20,
                     width: 20,
-                    errorBuilder: (_, _, _)  => const Icon(
+                    errorBuilder: (_, _, _) => const Icon(
                       Icons.g_mobiledata,
                       size: 24,
                     ),
