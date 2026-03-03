@@ -25,23 +25,8 @@ class ProfileSetupScreen extends ConsumerStatefulWidget {
 class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
   final _nameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  String _selectedLanguage = 'English';
   bool _isLoading = false;
   File? _avatarFile;
-
-  static const _languages = [
-    'English',
-    'isiZulu',
-    'isiXhosa',
-    'Sesotho',
-  ];
-
-  static const _langCodes = {
-    'English': 'en',
-    'isiZulu': 'zu',
-    'isiXhosa': 'xh',
-    'Sesotho': 'st',
-  };
 
   @override
   void dispose() {
@@ -85,9 +70,6 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
         phone: user.phoneNumber ?? '',
         avatarUrl: avatarUrl,
         createdAt: DateTime.now(),
-        settings: UserSettings(
-          language: _langCodes[_selectedLanguage] ?? 'en',
-        ),
       );
 
       await UserService().createProfile(profile);
@@ -112,6 +94,9 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Set Up Profile'),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24),
@@ -121,11 +106,6 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Gap(16),
-                Text(
-                  'Set up your profile',
-                  style: Theme.of(context).textTheme.displaySmall,
-                ),
-                const Gap(32),
                 Center(
                   child: GestureDetector(
                     onTap: _pickAvatar,
@@ -148,7 +128,7 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                         ),
                         const Gap(8),
                         Text(
-                          'Tap to add photo',
+                          'Add Photo',
                           style:
                               Theme.of(context).textTheme.bodySmall?.copyWith(
                                     color: AppColors.primary,
@@ -160,8 +140,8 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                 ),
                 const Gap(32),
                 AppTextField(
-                  label: 'Full Name',
-                  hint: 'Thabo Molefe',
+                  label: 'Display Name',
+                  hint: 'Enter your name',
                   controller: _nameController,
                   textInputAction: TextInputAction.done,
                   validator: (value) {
@@ -171,30 +151,9 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
                     return null;
                   },
                 ),
-                const Gap(24),
-                Text(
-                  'Preferred Language',
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
-                const Gap(8),
-                DropdownButtonFormField<String>(
-                  initialValue: _selectedLanguage,
-                  decoration: const InputDecoration(),
-                  items: _languages
-                      .map((lang) => DropdownMenuItem(
-                            value: lang,
-                            child: Text(lang),
-                          ))
-                      .toList(),
-                  onChanged: (value) {
-                    if (value != null) {
-                      setState(() => _selectedLanguage = value);
-                    }
-                  },
-                ),
                 const Spacer(),
                 AppButton(
-                  label: 'Save & Continue',
+                  label: 'Continue',
                   onPressed: _isLoading ? null : _save,
                   isLoading: _isLoading,
                 ),

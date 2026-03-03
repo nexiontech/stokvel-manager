@@ -116,7 +116,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Verify your number',
+                'Verification Code',
                 style: Theme.of(context).textTheme.displaySmall,
               ),
               const Gap(8),

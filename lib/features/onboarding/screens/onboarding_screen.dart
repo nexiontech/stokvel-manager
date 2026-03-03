@@ -18,21 +18,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   int _currentPage = 0;
 
   static const _icons = [
-    Icons.savings_outlined,
-    Icons.calendar_month_outlined,
-    Icons.people_outline,
+    Icons.savings,
+    Icons.calendar_month,
+    Icons.groups,
   ];
 
   static const _titles = [
-    'Save Together',
     'Track Contributions',
-    'Grow Your Community',
+    'Manage Payouts & Meetings',
+    'Stay Connected',
   ];
 
   static const _descriptions = [
-    'Pool your money with trusted friends and family in a secure digital stokvel.',
-    'Never miss a payment. Track contributions, payouts, and meetings in one place.',
-    'Invite members, vote on decisions, and build wealth together.',
+    "Record and track every member's contributions with proof of payment.",
+    'Automate rotation schedules and organise group meetings with RSVP.',
+    'Keep your stokvel group organised, transparent, and accountable.',
   ];
 
   void _next() {
@@ -64,6 +64,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: SafeArea(
         child: Column(
           children: [
+            // Skip button (top right)
+            Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 16, top: 8),
+                child: TextButton(
+                  onPressed: _goToAuth,
+                  child: const Text('Skip'),
+                ),
+              ),
+            ),
             Expanded(
               child: PageView.builder(
                 controller: _pageController,
@@ -98,9 +109,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         const Gap(16),
                         Text(
                           _descriptions[index],
-                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                color: AppColors.textSecondaryLight,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    color: AppColors.textSecondaryLight,
+                                  ),
                           textAlign: TextAlign.center,
                         ),
                       ],
@@ -122,7 +134,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   decoration: BoxDecoration(
                     color: _currentPage == index
                         ? AppColors.primary
-                        : AppColors.primary.withValues(alpha: 0.2),
+                        : Colors.grey.withValues(alpha: 0.3),
                     borderRadius: BorderRadius.circular(4),
                   ),
                 ),
@@ -131,26 +143,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             const Gap(32),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: isLastPage
-                  ? AppButton(
-                      label: 'Get Started',
-                      onPressed: _goToAuth,
-                    )
-                  : Row(
-                      children: [
-                        TextButton(
-                          onPressed: _goToAuth,
-                          child: const Text('Skip'),
-                        ),
-                        const Spacer(),
-                        AppButton(
-                          label: 'Next',
-                          onPressed: _next,
-                          fullWidth: false,
-                          icon: Icons.arrow_forward,
-                        ),
-                      ],
-                    ),
+              child: AppButton(
+                label: isLastPage ? 'Get Started' : 'Next',
+                onPressed: _next,
+                icon: isLastPage ? null : Icons.arrow_forward,
+              ),
             ),
             const Gap(32),
           ],
