@@ -99,7 +99,7 @@ class _RecordContributionScreenState
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Payment recorded successfully'),
+            content: Text('Contribution recorded successfully'),
             backgroundColor: AppColors.success,
           ),
         );
@@ -107,7 +107,7 @@ class _RecordContributionScreenState
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Failed to record payment. Please try again.'),
+            content: Text('Failed to record contribution. Please try again.'),
             backgroundColor: AppColors.error,
           ),
         );
@@ -135,7 +135,7 @@ class _RecordContributionScreenState
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Record Payment'),
+        title: const Text('Record Contribution'),
         leading: BackButton(onPressed: () => context.pop()),
       ),
       body: SafeArea(
@@ -298,7 +298,7 @@ class _RecordContributionScreenState
 
                 // Submit
                 AppButton(
-                  label: 'Record Payment',
+                  label: 'Save',
                   onPressed: isLoading ? null : _save,
                   isLoading: isLoading,
                 ),
