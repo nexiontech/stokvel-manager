@@ -33,7 +33,9 @@ class ContributionDetailScreen extends ConsumerWidget {
       ),
       body: contribAsync.when(
         loading: () => const Center(child: LoadingIndicator()),
-        error: (error, _) => Center(child: Text('Error: $error')),
+        error: (_, _) => const Center(
+          child: Text('Something went wrong. Please try again.'),
+        ),
         data: (contribution) {
           if (contribution == null) {
             return const Center(child: Text('Contribution not found'));

@@ -33,14 +33,21 @@ class GroupsListScreen extends ConsumerWidget {
       ),
       body: stokvelsAsync.when(
         loading: () => const Center(child: LoadingIndicator()),
-        error: (error, _) => Center(
+        error: (_, _) => Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Icon(Icons.error_outline, size: 48),
               const Gap(8),
-              Text('Failed to load groups\n$error',
-                  textAlign: TextAlign.center),
+              const Text(
+                'Something went wrong.\nPlease try again.',
+                textAlign: TextAlign.center,
+              ),
+              const Gap(16),
+              OutlinedButton(
+                onPressed: () => ref.invalidate(userStokvelsProvider),
+                child: const Text('Retry'),
+              ),
             ],
           ),
         ),

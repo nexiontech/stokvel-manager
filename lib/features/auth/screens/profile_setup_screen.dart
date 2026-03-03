@@ -81,7 +81,7 @@ class _ProfileSetupScreenState extends ConsumerState<ProfileSetupScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to save profile: $e'),
+            content: const Text('Something went wrong. Please try again.'),
             backgroundColor: AppColors.error,
           ),
         );

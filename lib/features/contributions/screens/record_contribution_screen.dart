@@ -152,7 +152,7 @@ class _RecordContributionScreenState
                 const Gap(8),
                 membersAsync.when(
                   loading: () => const Center(child: LoadingIndicator()),
-                  error: (error, _) => Text('Error loading members: $error'),
+                  error: (_, _) => const Text('Could not load members. Please try again.'),
                   data: (members) {
                     final activeMembers = members
                         .where((m) => m.status == MemberStatus.active)
