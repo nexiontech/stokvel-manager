@@ -175,20 +175,29 @@ class _OverviewTab extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleLarge),
               const Gap(12),
               _StatRow(
+                label: 'Type',
+                value: group.type.displayName,
+              ),
+              _StatRow(
                 label: 'Total Collected',
                 value: currencyFormat.format(group.totalCollected),
               ),
               _StatRow(
-                label: 'Monthly Contribution',
-                value: currencyFormat.format(group.contributionAmount),
+                label: 'Contribution',
+                value:
+                    '${currencyFormat.format(group.contributionAmount)}/${group.contributionFrequency}',
               ),
               _StatRow(
-                label: 'Frequency',
-                value: group.contributionFrequency.toUpperCase(),
+                label: 'Members',
+                value: '${group.memberCount}',
               ),
               _StatRow(
                 label: 'Currency',
                 value: group.currency,
+              ),
+              _StatRow(
+                label: 'Created',
+                value: DateFormat('d MMM yyyy').format(group.createdAt),
               ),
             ],
           ),
