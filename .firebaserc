@@ -1,1 +1,5 @@
-{"projects":{"default":"astra-488209"}}
+{
+  "projects": {
+    "default": "stokvel-manager"
+  }
+}
