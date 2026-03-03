@@ -13,6 +13,15 @@ import '../providers/profile_provider.dart';
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
+  String _getInitials(String name) {
+    if (name.isEmpty || name == 'Loading...') return '?';
+    final parts = name.trim().split(' ');
+    if (parts.length >= 2) {
+      return '${parts.first[0]}${parts.last[0]}'.toUpperCase();
+    }
+    return parts.first[0].toUpperCase();
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final profileAsync = ref.watch(currentProfileProvider);
@@ -40,8 +49,14 @@ class ProfileScreen extends ConsumerWidget {
                       ? CachedNetworkImageProvider(avatarUrl)
                       : null,
                   child: avatarUrl == null
-                      ? const Icon(Icons.person,
-                          size: 48, color: AppColors.primary)
+                      ? Text(
+                          _getInitials(displayName),
+                          style: const TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.primary,
+                          ),
+                        )
                       : null,
                 ),
                 const Gap(12),
@@ -130,15 +145,21 @@ class ProfileScreen extends ConsumerWidget {
           // Account section
           Text('Account', style: Theme.of(context).textTheme.titleLarge),
           const Gap(8),
-          AppButton(
-            label: 'Log Out',
-            variant: AppButtonVariant.outline,
-            onPressed: () async {
-              await ref.read(authStateProvider.notifier).signOut();
-              if (context.mounted) {
-                context.go('/onboarding');
-              }
-            },
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton(
+              onPressed: () async {
+                await ref.read(authStateProvider.notifier).signOut();
+                if (context.mounted) {
+                  context.go('/onboarding');
+                }
+              },
+              style: OutlinedButton.styleFrom(
+                foregroundColor: AppColors.error,
+                side: const BorderSide(color: AppColors.error),
+              ),
+              child: const Text('Log Out'),
+            ),
           ),
           const Gap(8),
           AppButton(
@@ -172,7 +193,7 @@ class ProfileScreen extends ConsumerWidget {
           const Gap(16),
           Center(
             child: Text(
-              'v1.0.0',
+              'v1.0.1',
               style: Theme.of(context).textTheme.bodySmall,
             ),
           ),

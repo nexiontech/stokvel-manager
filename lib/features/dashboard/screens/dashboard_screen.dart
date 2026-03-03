@@ -278,7 +278,7 @@ class DashboardScreen extends ConsumerWidget {
               Center(
                 child: Column(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.groups_outlined,
                       size: 64,
                       color: AppColors.textSecondaryLight,
@@ -289,6 +289,25 @@ class DashboardScreen extends ConsumerWidget {
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: AppColors.textSecondaryLight,
                           ),
+                    ),
+                    const Gap(24),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton.icon(
+                          onPressed: () =>
+                              context.pushNamed(RouteNames.createGroup),
+                          icon: const Icon(Icons.add),
+                          label: const Text('Create Group'),
+                        ),
+                        const Gap(12),
+                        OutlinedButton.icon(
+                          onPressed: () =>
+                              context.pushNamed(RouteNames.groups),
+                          icon: const Icon(Icons.group_add),
+                          label: const Text('Join Group'),
+                        ),
+                      ],
                     ),
                   ],
                 ),
