@@ -118,7 +118,7 @@ class _CreateGroupScreenState extends ConsumerState<CreateGroupScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to create group: $e'),
+            content: const Text('Something went wrong. Please try again.'),
             backgroundColor: AppColors.error,
           ),
         );

@@ -22,7 +22,9 @@ class ContributionsScreen extends ConsumerWidget {
 
     return userContribsAsync.when(
       loading: () => const Center(child: LoadingIndicator()),
-      error: (error, _) => Center(child: Text('Error: $error')),
+      error: (_, _) => const Center(
+        child: Text('Something went wrong. Please try again.'),
+      ),
       data: (groupContribs) {
         if (groupContribs.isEmpty) {
           return const EmptyState(

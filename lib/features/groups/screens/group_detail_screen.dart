@@ -54,9 +54,11 @@ class _GroupDetailScreenState extends ConsumerState<GroupDetailScreen>
       loading: () => const Scaffold(
         body: Center(child: LoadingIndicator()),
       ),
-      error: (error, _) => Scaffold(
+      error: (_, _) => Scaffold(
         appBar: AppBar(),
-        body: Center(child: Text('Error: $error')),
+        body: const Center(
+          child: Text('Something went wrong. Please try again.'),
+        ),
       ),
       data: (group) {
         if (group == null) {
@@ -306,7 +308,9 @@ class _MembersTab extends ConsumerWidget {
 
     return membersAsync.when(
       loading: () => const Center(child: LoadingIndicator()),
-      error: (error, _) => Center(child: Text('Error: $error')),
+      error: (_, _) => const Center(
+        child: Text('Something went wrong. Please try again.'),
+      ),
       data: (members) {
         return ListView(
           padding: const EdgeInsets.all(16),
@@ -387,7 +391,9 @@ class _ContributionsTab extends ConsumerWidget {
 
     return contribsAsync.when(
       loading: () => const Center(child: LoadingIndicator()),
-      error: (error, _) => Center(child: Text('Error: $error')),
+      error: (_, _) => const Center(
+        child: Text('Something went wrong. Please try again.'),
+      ),
       data: (grouped) {
         // Sort month keys descending (most recent first)
         final sortedKeys = grouped.keys.toList()
@@ -555,7 +561,9 @@ class _PayoutsTab extends ConsumerWidget {
 
     return payoutsAsync.when(
       loading: () => const Center(child: LoadingIndicator()),
-      error: (error, _) => Center(child: Text('Error: $error')),
+      error: (_, _) => const Center(
+        child: Text('Something went wrong. Please try again.'),
+      ),
       data: (payouts) {
         // Determine which payout is "current" (first scheduled)
         Payout? currentPayout;

@@ -43,7 +43,9 @@ class PayoutDetailScreen extends ConsumerWidget {
       ),
       body: payoutAsync.when(
         loading: () => const Center(child: LoadingIndicator()),
-        error: (error, _) => Center(child: Text('Error: $error')),
+        error: (_, _) => const Center(
+          child: Text('Something went wrong. Please try again.'),
+        ),
         data: (payout) {
           if (payout == null) {
             return const Center(child: Text('Payout not found'));
