@@ -175,20 +175,21 @@ class _ContributionCard extends StatelessWidget {
 
     return AppCard(
       onTap: () => context.pushNamed(
-        RouteNames.groupDetail,
-        pathParameters: {'id': group.id},
+        RouteNames.contributionDetail,
+        pathParameters: {
+          'groupId': group.id,
+          'contribId': contribution.id,
+        },
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(group.name, style: Theme.of(context).textTheme.titleSmall),
-          const Gap(4),
           Row(
             children: [
               Expanded(
                 child: Text(
-                  dueLine,
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  contribution.memberName,
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
               ),
               Container(
@@ -208,6 +209,28 @@ class _ContributionCard extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          const Gap(4),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  dueLine,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ),
+              Text(
+                dateFormat.format(contribution.dueDate),
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ],
+          ),
+          const Gap(2),
+          Text(
+            group.name,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: AppColors.textSecondaryLight,
+                ),
           ),
         ],
       ),
