@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -199,32 +198,31 @@ class _ShellScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       body: child,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex(context),
         onTap: (index) => context.go(_tabs[index]),
-        items: [
+        items: const [
           BottomNavigationBarItem(
-            icon: const Icon(Icons.home_outlined),
-            activeIcon: const Icon(Icons.home),
-            label: l10n.home,
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
+            label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.groups_outlined),
-            activeIcon: const Icon(Icons.groups),
-            label: l10n.groups,
+            icon: Icon(Icons.groups_outlined),
+            activeIcon: Icon(Icons.groups),
+            label: 'Groups',
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.account_balance_wallet_outlined),
-            activeIcon: const Icon(Icons.account_balance_wallet),
-            label: l10n.money,
+            icon: Icon(Icons.account_balance_wallet_outlined),
+            activeIcon: Icon(Icons.account_balance_wallet),
+            label: 'Money',
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.person_outline),
-            activeIcon: const Icon(Icons.person),
-            label: l10n.profile,
+            icon: Icon(Icons.person_outline),
+            activeIcon: Icon(Icons.person),
+            label: 'Profile',
           ),
         ],
       ),
@@ -283,10 +281,9 @@ class _MoneyTabScreenState extends State<_MoneyTabScreen>
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.money),
+        title: const Text('Money'),
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications_outlined),
@@ -295,10 +292,10 @@ class _MoneyTabScreenState extends State<_MoneyTabScreen>
         ],
         bottom: TabBar(
           controller: _tabController,
-          tabs: [
-            Tab(text: l10n.contributions),
-            Tab(text: l10n.payouts),
-            Tab(text: l10n.meetings),
+          tabs: const [
+            Tab(text: 'Contributions'),
+            Tab(text: 'Payouts'),
+            Tab(text: 'Meetings'),
           ],
         ),
       ),
