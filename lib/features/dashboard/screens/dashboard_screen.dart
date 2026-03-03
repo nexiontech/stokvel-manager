@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -14,23 +13,22 @@ import '../providers/dashboard_provider.dart';
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
 
-  String _greeting(AppLocalizations l10n) {
+  String _greeting() {
     final hour = DateTime.now().hour;
-    if (hour < 12) return l10n.goodMorning;
-    if (hour < 17) return l10n.goodAfternoon;
-    return l10n.goodEvening;
+    if (hour < 12) return 'Good morning';
+    if (hour < 17) return 'Good afternoon';
+    return 'Good evening';
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context)!;
     final dashboardData = ref.watch(dashboardDataProvider);
     final currencyFormat =
         NumberFormat.currency(locale: 'en_ZA', symbol: 'R', decimalDigits: 0);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.appName),
+        title: const Text('Stokvel Manager'),
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications_outlined),
@@ -46,7 +44,7 @@ class DashboardScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(16),
           children: [
             Text(
-              '${_greeting(l10n)}, ${dashboardData.userName}',
+              '${_greeting()}, ${dashboardData.userName}',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const Gap(16),
@@ -73,7 +71,7 @@ class DashboardScreen extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          l10n.totalSavings,
+                          'Total Savings',
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                         Text(
@@ -84,7 +82,7 @@ class DashboardScreen extends ConsumerWidget {
                               ?.copyWith(fontWeight: FontWeight.w700),
                         ),
                         Text(
-                          l10n.acrossGroups(dashboardData.groupCount),
+                          'Across ${dashboardData.groupCount} groups',
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                       ],
@@ -119,14 +117,11 @@ class DashboardScreen extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            l10n.nextContribution,
+                            'Next Contribution',
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                           Text(
-                            l10n.dueInDays(
-                              currencyFormat.format(dashboardData.nextContributionAmount),
-                              dashboardData.nextContributionDays,
-                            ),
+                            '${currencyFormat.format(dashboardData.nextContributionAmount)} due in ${dashboardData.nextContributionDays} days',
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                           Text(
@@ -170,7 +165,7 @@ class DashboardScreen extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            l10n.nextPayout,
+                            'Next Payout',
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                           Text(
@@ -220,7 +215,7 @@ class DashboardScreen extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          l10n.nextMeeting,
+                          'Next Meeting',
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                         Text(
@@ -243,7 +238,7 @@ class DashboardScreen extends ConsumerWidget {
             // Recent Activity
             if (dashboardData.recentActivity.isNotEmpty) ...[
               Text(
-                l10n.recentActivity,
+                'Recent Activity',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const Gap(8),
@@ -255,7 +250,7 @@ class DashboardScreen extends ConsumerWidget {
                       Container(
                         width: 8,
                         height: 8,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: AppColors.primary,
                           shape: BoxShape.circle,
                         ),
@@ -290,7 +285,7 @@ class DashboardScreen extends ConsumerWidget {
                     ),
                     const Gap(16),
                     Text(
-                      l10n.joinOrCreate,
+                      'Join or create a stokvel to get started',
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: AppColors.textSecondaryLight,
                           ),

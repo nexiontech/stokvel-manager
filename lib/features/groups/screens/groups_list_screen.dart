@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -17,14 +16,13 @@ class GroupsListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context)!;
     final stokvelsAsync = ref.watch(userStokvelsProvider);
     final currencyFormat =
         NumberFormat.currency(locale: 'en_ZA', symbol: 'R', decimalDigits: 0);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.myGroups),
+        title: const Text('My Groups'),
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications_outlined),
@@ -40,7 +38,7 @@ class GroupsListScreen extends ConsumerWidget {
             children: [
               const Icon(Icons.error_outline, size: 48),
               const Gap(8),
-              Text('${l10n.failedToLoadGroups}\n$error',
+              Text('Failed to load groups\n$error',
                   textAlign: TextAlign.center),
             ],
           ),
@@ -49,9 +47,9 @@ class GroupsListScreen extends ConsumerWidget {
           if (groups.isEmpty) {
             return EmptyState(
               icon: Icons.groups_outlined,
-              title: l10n.noStokvelsYet,
-              message: l10n.noStokvelsMessage,
-              actionLabel: l10n.createStokvel,
+              title: 'No stokvels yet',
+              message: 'Create or join a stokvel to get started.',
+              actionLabel: 'Create Stokvel',
               onAction: () => context.pushNamed(RouteNames.createGroup),
             );
           }
@@ -87,19 +85,19 @@ class GroupsListScreen extends ConsumerWidget {
                           const Icon(Icons.people_outline, size: 16),
                           const Gap(4),
                           Text(
-                            l10n.membersCount(group.memberCount),
+                            '${group.memberCount} members',
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                           const Gap(16),
                           Text(
-                            l10n.perMonth(currencyFormat.format(group.contributionAmount)),
+                            '${currencyFormat.format(group.contributionAmount)}/month',
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ],
                       ),
                       const Gap(8),
                       Text(
-                        l10n.balanceAmount(currencyFormat.format(group.totalCollected)),
+                        'Balance: ${currencyFormat.format(group.totalCollected)}',
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.w600,
@@ -116,7 +114,7 @@ class GroupsListScreen extends ConsumerWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.pushNamed(RouteNames.createGroup),
         icon: const Icon(Icons.add),
-        label: Text(l10n.create),
+        label: const Text('Create'),
       ),
     );
   }

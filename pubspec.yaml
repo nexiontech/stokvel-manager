@@ -52,7 +52,6 @@ dev_dependencies:
   flutter_native_splash: ^2.4.5
 
 flutter:
-  generate: true
   uses-material-design: true
 
 flutter_launcher_icons:

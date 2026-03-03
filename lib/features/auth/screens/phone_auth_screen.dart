@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -29,13 +28,12 @@ class _PhoneAuthScreenState extends ConsumerState<PhoneAuthScreen> {
   }
 
   String? _validatePhone(String? value) {
-    final l10n = AppLocalizations.of(context)!;
     if (value == null || value.isEmpty) {
-      return l10n.phoneValidationEmpty;
+      return 'Please enter your phone number';
     }
     final digits = value.replaceAll(RegExp(r'\D'), '');
     if (digits.length != 9) {
-      return l10n.phoneValidationInvalid;
+      return 'Please enter a valid 9-digit phone number';
     }
     return null;
   }
@@ -49,7 +47,6 @@ class _PhoneAuthScreenState extends ConsumerState<PhoneAuthScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final authState = ref.watch(authStateProvider);
 
     ref.listen<AuthState>(authStateProvider, (prev, next) {
@@ -84,26 +81,26 @@ class _PhoneAuthScreenState extends ConsumerState<PhoneAuthScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  l10n.welcomeTo,
+                  'Welcome to',
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 Text(
-                  l10n.appName,
+                  'Stokvel Manager',
                   style: Theme.of(context).textTheme.displaySmall?.copyWith(
                         color: AppColors.primary,
                       ),
                 ),
                 const Gap(8),
                 Text(
-                  l10n.phoneAuthTitle,
+                  'Enter your phone number to get started',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: AppColors.textSecondaryLight,
                       ),
                 ),
                 const Gap(32),
                 AppTextField(
-                  label: l10n.phoneNumber,
-                  hint: l10n.phoneHint,
+                  label: 'Phone Number',
+                  hint: '81 234 5678',
                   controller: _phoneController,
                   keyboardType: TextInputType.phone,
                   validator: _validatePhone,
@@ -137,12 +134,12 @@ class _PhoneAuthScreenState extends ConsumerState<PhoneAuthScreen> {
                 ),
                 const Gap(12),
                 Text(
-                  l10n.phoneSmsNote,
+                  "We'll send you a one-time SMS code",
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 const Gap(32),
                 AppButton(
-                  label: l10n.continueButton,
+                  label: 'Continue',
                   onPressed: isLoading ? null : _continue,
                   isLoading: isLoading,
                 ),
@@ -153,7 +150,7 @@ class _PhoneAuthScreenState extends ConsumerState<PhoneAuthScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Text(
-                        l10n.or,
+                        'or',
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ),
@@ -171,12 +168,12 @@ class _PhoneAuthScreenState extends ConsumerState<PhoneAuthScreen> {
                     'https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg',
                     height: 20,
                     width: 20,
-                    errorBuilder: (_, _, _) => const Icon(
+                    errorBuilder: (_, __, ___) => const Icon(
                       Icons.g_mobiledata,
                       size: 24,
                     ),
                   ),
-                  label: Text(l10n.continueWithGoogle),
+                  label: const Text('Continue with Google'),
                   style: OutlinedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 52),
                     shape: RoundedRectangleBorder(
@@ -189,19 +186,19 @@ class _PhoneAuthScreenState extends ConsumerState<PhoneAuthScreen> {
                 Center(
                   child: Text.rich(
                     TextSpan(
-                      text: l10n.termsPrefix,
+                      text: 'By continuing, you agree to our ',
                       style: Theme.of(context).textTheme.bodySmall,
                       children: [
                         TextSpan(
-                          text: l10n.terms,
+                          text: 'Terms of Service',
                           style: TextStyle(
                             color: AppColors.primary,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        TextSpan(text: l10n.and),
+                        const TextSpan(text: ' and '),
                         TextSpan(
-                          text: l10n.privacyPolicy,
+                          text: 'Privacy Policy',
                           style: TextStyle(
                             color: AppColors.primary,
                             fontWeight: FontWeight.w600,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
@@ -22,6 +21,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     Icons.savings_outlined,
     Icons.calendar_month_outlined,
     Icons.people_outline,
+  ];
+
+  static const _titles = [
+    'Save Together',
+    'Track Contributions',
+    'Grow Your Community',
+  ];
+
+  static const _descriptions = [
+    'Pool your money with trusted friends and family in a secure digital stokvel.',
+    'Never miss a payment. Track contributions, payouts, and meetings in one place.',
+    'Invite members, vote on decisions, and build wealth together.',
   ];
 
   void _next() {
@@ -47,19 +58,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final isLastPage = _currentPage == _icons.length - 1;
-
-    final titles = [
-      l10n.onboardingTitle1,
-      l10n.onboardingTitle2,
-      l10n.onboardingTitle3,
-    ];
-    final descriptions = [
-      l10n.onboardingDesc1,
-      l10n.onboardingDesc2,
-      l10n.onboardingDesc3,
-    ];
 
     return Scaffold(
       body: SafeArea(
@@ -92,13 +91,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         ),
                         const Gap(48),
                         Text(
-                          titles[index],
+                          _titles[index],
                           style: Theme.of(context).textTheme.displaySmall,
                           textAlign: TextAlign.center,
                         ),
                         const Gap(16),
                         Text(
-                          descriptions[index],
+                          _descriptions[index],
                           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                 color: AppColors.textSecondaryLight,
                               ),
@@ -134,18 +133,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: isLastPage
                   ? AppButton(
-                      label: l10n.getStarted,
+                      label: 'Get Started',
                       onPressed: _goToAuth,
                     )
                   : Row(
                       children: [
                         TextButton(
                           onPressed: _goToAuth,
-                          child: Text(l10n.skip),
+                          child: const Text('Skip'),
                         ),
                         const Spacer(),
                         AppButton(
-                          label: l10n.next,
+                          label: 'Next',
                           onPressed: _next,
                           fullWidth: false,
                           icon: Icons.arrow_forward,
